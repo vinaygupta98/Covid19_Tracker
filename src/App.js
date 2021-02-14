@@ -33,15 +33,19 @@ const App = () => {
           </tr>
           </thead>
           <tbody>
-          {data.map(( state) => {
-          return ( <tr>
+          {data.map(( state,i) => {
+            if (i>0) {
+          return (
+            
+          <tr>
             <td>{state.state}</td>
             <td>{state.confirmed}</td>
             <td>{state.active}</td>
             <td>{state.recovered}</td>
             <td>{state.deaths}</td>
-            </tr>)
-        })} 
+            </tr>
+            )}
+          })} 
           
 
           </tbody>

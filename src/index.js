@@ -6,7 +6,8 @@ import   Data from "./data";
 import Chart from "./chart"
 
 ReactDOM.render(<>
-
+<Data/>
+<App/>
   <Chart/>
 </>
 ,

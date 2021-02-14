@@ -46,7 +46,12 @@ const geographyStyle = {
 };
 
 
-function App() {
+function Data() {
+  const [ confirmed ,setConfirmed] =useState('' );
+  const [ active ,setActive] =useState('');
+  const [ recovered ,setRecovered] =useState('');
+  const [ deceased ,setDeceased] =useState('');
+
   const [tooltipContent, setTooltipContent] = useState('');
   const [data,setData] = useState([]); 
   
@@ -59,6 +64,10 @@ function App() {
     const response = await fetch('https://api.covid19india.org/data.json')
     const data = await response.json()   
      setData(data.statewise)
+     setConfirmed(data.statewise[0].confirmed)
+     setActive(data.statewise[0].active)
+     setRecovered(data.statewise[0].recovered)
+     setDeceased(data.statewise[0].deaths)  
 
   }
 
@@ -73,21 +82,48 @@ function App() {
     .domain(data.map(d => d.confirmed))
     .range(COLOR_RANGE);
 
+    
   const onMouseEnter = (geo, current = { value: 'NA' }) => {
     return () => {
       setTooltipContent(`${geo.properties.name}: ${current.confirmed}`);
-      document.getElementById("heading").innerText = 'States and UTs'
+      document.getElementById("heading").innerText = `${geo.properties.name}`
+      setConfirmed(current.confirmed)
+      setActive(current.active)
+      setRecovered(current.recovered)
+      setDeceased(current.deaths)
+
     };
   };
 
   const onMouseLeave = () => {
     setTooltipContent('');
     document.getElementById("heading").innerText = 'States and UTs'
+    setConfirmed(data[0].confirmed)
+    setActive(data[0].active)
+    setRecovered(data[0].recovered)
+    setDeceased(data[0].deaths)
   };
 
   return (
     <div className="full-width-height container">
       <h1 id="heading">States and UTs</h1>
+      <div>
+      <h1>CONFIRMED</h1>
+      {confirmed}
+      </div>
+       <div>
+      <h1>ACTIVE</h1>
+      {active}
+      </div> 
+      <div>
+      <h1>RECOVERED</h1>
+        {recovered}
+      </div>
+       <div>
+      <h1>DECEASED</h1>
+      {deceased}
+
+      </div>
       <ReactTooltip>{tooltipContent}</ReactTooltip>
         <ComposableMap
           projectionConfig={PROJECTION_CONFIG}
@@ -121,4 +157,4 @@ function App() {
   );
 }
 
-export default App;
+export default Data;
