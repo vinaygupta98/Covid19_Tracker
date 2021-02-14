@@ -1,23 +1,52 @@
-import logo from './logo.svg';
 import './App.css';
+import {React,useEffect, useState} from 'react'
 
-function App() {
+
+
+
+const App = () => {
+  const [data,setData] = useState([]); 
+  
+  useEffect( () => {
+    getData()
+  }
+  ,[])
+
+  const getData =  async () => {
+    const response = await fetch('https://api.covid19india.org/data.json')
+    const data = await response.json()   
+     setData(data.statewise)
+
+  }
+ 
+  
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <table>
+        <thead>
+          <tr>
+          <th>STATE/UT</th>
+          <th>CONFIRMED</th>
+          <th>ACTIVE</th>      
+          <th>RECOVERED</th>
+          <th>DECEASED</th>
+          </tr>
+          </thead>
+          <tbody>
+          {data.map(( state) => {
+          return ( <tr>
+            <td>{state.state}</td>
+            <td>{state.confirmed}</td>
+            <td>{state.active}</td>
+            <td>{state.recovered}</td>
+            <td>{state.deaths}</td>
+            </tr>)
+        })} 
+          
+
+          </tbody>
+       
+          </table>
     </div>
   );
 }
