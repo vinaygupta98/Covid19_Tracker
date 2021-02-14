@@ -5,8 +5,10 @@ import App from './App';
 import   Data from "./data";
 import Chart from "./chart"
 
-ReactDOM.render(
-<Chart/>
+ReactDOM.render(<>
+
+  <Chart/>
+</>
 ,
   document.getElementById('root')
 );

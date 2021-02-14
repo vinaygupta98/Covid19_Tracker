@@ -76,12 +76,13 @@ function App() {
   const onMouseEnter = (geo, current = { value: 'NA' }) => {
     return () => {
       setTooltipContent(`${geo.properties.name}: ${current.confirmed}`);
-      document.getElementById("heading").innerText = `${geo.properties.name}`
+      document.getElementById("heading").innerText = 'States and UTs'
     };
   };
 
   const onMouseLeave = () => {
     setTooltipContent('');
+    document.getElementById("heading").innerText = 'States and UTs'
   };
 
   return (
